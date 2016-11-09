@@ -3,8 +3,10 @@ package com.example.android.miwok;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -56,13 +58,28 @@ public class ColoursActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colours);
 
-        ArrayList<Word> words = new ArrayList<>();
+        // display the up arrow, use R.id.home to reference, when the user presses it, your activity
+        // receives a call to onOptionsItemSelected()
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+        ArrayList<Word> words = new ArrayList<>();
 
         words.add(new Word("red", "wetetti", R.drawable.color_red, R.raw.color_red));
         words.add(new Word("green", "chokokki", R.drawable.color_green, R.raw.color_green));
